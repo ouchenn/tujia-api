@@ -1,5 +1,5 @@
 
-name: ioTree CI/CD Flow
+name: Tujia API CI/CD Flow
 
 on:
   push:
