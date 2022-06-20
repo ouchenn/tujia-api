@@ -1,5 +1,6 @@
 package co.tujia.tujia.util;
 
+import co.tujia.tujia.service.impl.UserDetailsImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -41,9 +42,9 @@ public class JwtUtil {
         return expiration.before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetailsImpl userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userDetails.getUsername());
+        return doGenerateToken(claims, userDetails.getEmail());
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
@@ -52,8 +53,8 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS512, secretKey).compact();
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = getUsernameFromToken(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    public Boolean validateToken(String token, UserDetailsImpl userDetails) {
+        final String email = getUsernameFromToken(token);
+        return (email.equals(userDetails.getEmail()) && !isTokenExpired(token));
     }
 }

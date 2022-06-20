@@ -1,5 +1,6 @@
 package co.tujia.tujia.filter;
 
+import co.tujia.tujia.service.impl.UserDetailsImpl;
 import co.tujia.tujia.service.impl.UserServiceImpl;
 import co.tujia.tujia.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -36,10 +37,9 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         if(null != email && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails
-                    = userService.loadUserByUsername(email);
+            UserDetailsImpl userDetails = (UserDetailsImpl) userService.loadUserByUsername(email);
 
-            if(jwtUtil.validateToken(token,userDetails)) {
+            if(jwtUtil.validateToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
                         = new UsernamePasswordAuthenticationToken(userDetails,
                         null, userDetails.getAuthorities());
