@@ -25,7 +25,7 @@ public class Schedule {
     private Boolean weekly;
     private Boolean monthly;
     private ArrayList<String> custom;
-    private ArrayList<Long> times;
+    private ArrayList<String> times;
     private String instructions;
     @DBRef
     private Medication medication;
